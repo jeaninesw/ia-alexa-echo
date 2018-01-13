@@ -559,6 +559,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
       var cardTitle = 'Collection Seventy Eights Has Been Selected.';
       var repromptText = "<speak>Waiting for your responce.<break time='.1s'/>  Please select Topics like Jazz <break time='.5s'/> Instrumental or <break time='.5s'/> Dance</speak>";
       var speechOutput = "<speak>Collection Seventy Eights Has Been Selected.<break time='.1s'/> Please select Topics like Jazz <break time='.5s'/> Instrumental or <break time='.5s'/> Dance</speak>";
+      var textOutput = "Collection Seventy Eights Has Been Selected. Please select Topics like Jazz, Instrumental or Dance.";
 
       var response = {
         version: '1.0',
@@ -570,7 +571,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
           card: {
             type: 'Simple',
             title: cardTitle,
-            content: speechOutput,
+            content: textOutput,
           },
           reprompt: {
             outputSpeech: {
@@ -726,6 +727,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
                   var cardTitle = 'No Songs Found';
                   var repromptText = "<speak>No songs found. Please select Topics like Jazz <break time='.5s'/> Instrumental or <break time='.5s'/> Dance.</speak>";
                   var speechOutput = "<speak>Sorry , No songs found. Please select Topics like Jazz <break time='.5s'/> Instrumental or <break time='.5s'/> Dance.</speak>";
+                  var textOutput = "Sorry, no songs found. Please select Topics like Jazz, Instrumental or Dance.";
                   var response = {
                     version: '1.0',
                     response: {
@@ -736,7 +738,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
                       card: {
                         type: 'Simple',
                         title: cardTitle,
-                        content: speechOutput,
+                        content: textOutput,
                       },
                       reprompt: {
                         outputSpeech: {
@@ -755,6 +757,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
               var cardTitle = 'Unable to understand your request. Please Try again.';
               var repromptText = '<speak>Waiting for your responce.</speak>';
               var speechOutput = "<speak>Sorry , Unable to understand your request. Please Try again.</speak>";
+              var textOutput = "Sorry, unable to understand your request. Please Try again.";
               var response = {
                 version: '1.0',
                 response: {
@@ -765,7 +768,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
                   card: {
                     type: 'Simple',
                     title: cardTitle,
-                    content: speechOutput,
+                    content: textOutput,
                   },
                   reprompt: {
                     outputSpeech: {
@@ -786,6 +789,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
                 var cardTitle = 'No Songs Found';
                 var repromptText = '<speak>No songs found. Please Try again.</speak>';
                 var speechOutput = "<speak>Sorry , No songs found. Please Try again.</speak>";
+                var textOutput = "Sorry, no songs found. Please try again.";
                 var response = {
                   version: '1.0',
                   response: {
@@ -796,7 +800,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
                     card: {
                       type: 'Simple',
                       title: cardTitle,
-                      content: speechOutput,
+                      content: textOutput,
                     },
                     reprompt: {
                       outputSpeech: {
@@ -824,6 +828,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
               var cardTitle = 'Unable to understand your request. Please Try again.';
               var repromptText = '<speak>Waiting for your responce.</speak>';
               var speechOutput = "<speak>Sorry , Unable to understand your request. Please Try again.</speak>";
+              var textOutput = "Sorry, unable to understand your request. Please try again.";
               var response = {
                 version: '1.0',
                 response: {
@@ -834,7 +839,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
                   card: {
                     type: 'Simple',
                     title: cardTitle,
-                    content: speechOutput,
+                    content: textOutput,
                   },
                   reprompt: {
                     outputSpeech: {
@@ -862,6 +867,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
     var cardTitle = 'Unable to understand your request.';
     var repromptText = '<speak>Waiting for your responce.</speak>';
     var speechOutput = "<speak>Sorry, Unable to understand your request. Please Try again by select. City and Year. or <break time='.1s'/> random.</speak>";
+    var textOutput = "Sorry, unable to understand your request. Please try again by selecting City, Year, or random.";
 
     var response = {
       version: '1.0',
@@ -873,7 +879,7 @@ function getAudioPlayListSeventyEights(intent, counter, thisOBJ, offsetInMillise
         card: {
           type: 'Simple',
           title: cardTitle,
-          content: speechOutput,
+          content: textOutput,
         },
         reprompt: {
           outputSpeech: {
@@ -953,6 +959,7 @@ MyAudioPlayer.prototype.PlayNext = function (requestType, offsetInMilliseconds) 
     var cardTitle = 'Unable to understand your request.';
     var repromptText = '<speak>Waiting for your responce.Please Try again by saying. City and Year. or <break time=".1s"/>  random.</speak>';
     var speechOutput = "<speak>Sorry , Error Occured.Please Try again. Please Try again by saying. City and Year. or <break time='.1s'/> random.</speak>";
+    var textOutput = "Sorry, Error Occured.\nPlease Try again by saying City, Year, or random.";
 
     var response = {
       version: '1.0',
@@ -964,7 +971,7 @@ MyAudioPlayer.prototype.PlayNext = function (requestType, offsetInMilliseconds) 
         card: {
           type: 'Simple',
           title: cardTitle,
-          content: speechOutput,
+          content: textOutput,
         },
         reprompt: {
           outputSpeech: {
@@ -984,6 +991,7 @@ MyAudioPlayer.prototype.PlayNext = function (requestType, offsetInMilliseconds) 
 function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callback) {
   console.log("\ngetAudioPlayList -  counter:" + counter + " thisOBJ:" + thisOBJ + 
     " offsetInMilliseconds:" + offsetInMilliseconds + " callback:" + callback + " collection: " + collection);
+
   if (collection != '' || searchBYTitle) {
     var track = counter + 1;
 
@@ -1339,11 +1347,14 @@ function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callba
                             text: "Playing track - " + MusicUrlList[trackcounter]['title'] + " . ",
                           },
                           card: {
-                            type: 'Simple',
+                            type: 'Standard',
+                            image: {
+                              smallImageUrl: "https://ia802700.us.archive.org/0/items/GratefulDead/gdlogo.jpg",
+                              largeImageUrl: "https://ia802700.us.archive.org/0/items/GratefulDead/gdlogo.jpg",
+                            },
                             title: "Playing track number - " + track,
                             content: "Playing track number - " + track + " " + MusicUrlList[trackcounter]['title'] + " . ",
                           },
-                          shouldEndSession: true,
                           directives: [
                             {
                               type: "AudioPlayer.Play",
@@ -1354,6 +1365,30 @@ function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callba
                                   token: MusicUrlList[trackcounter]['identifier'] + counter,
                                   expectedPreviousToken: null,
                                   offsetInMilliseconds: offsetInMilliseconds
+                                }
+                              }
+                            },
+                            {
+                              type: "Display.RenderTemplate",
+                              template: {
+                                type: "BodyTemplate2",
+                                token: "string",
+                                backButton: "HIDDEN",
+                                image: "https://ia802700.us.archive.org/0/items/GratefulDead/gdlogo.jpg",
+                                title: "Music from the Internet Archive",
+                                textContent: {
+                                  primaryText: {
+                                    text: "Internet Archive: " + collection,
+                                    type: "PlainText"
+                                  },
+                                  secondaryText: {
+                                    text: "Playing track number: " + track,
+                                    type: "PlainText"
+                                  },
+                                  tertiaryText: {
+                                    text: MusicUrlList[trackcounter]['title'],
+                                    type: "PlainText"
+                                  }
                                 }
                               }
                             }
@@ -2279,8 +2314,13 @@ function log(Title, Collection, City, Year, Url, callback) {
 
 MyAudioPlayer.prototype.getCollection = function (intent) {
   var CurrentObject = this;
-  collection = intent.slots.COLLECTION.value;
-  var collection_real_name = intent.slots.COLLECTION.value
+  var slotValue = intent.slots.COLLECTION.value;
+  if (slotValue == '') {
+    // if no collection defined, set default to grateful dead
+    slotValue = 'grateful dead';
+  }
+  collection = slotValue;
+  var collection_real_name = slotValue;
   console.log("collectionSlot: " + collection);
   if (collection != '' || collection != undefined) {
 
@@ -2526,6 +2566,12 @@ MyAudioPlayer.prototype.Welcome = function () {
 
 
 MyAudioPlayer.prototype.play = function (intent, offsetInMilliseconds) {
+  // if no collection is set, use the Grateful Dead collection
+  if (collection == '') {
+    console.log("\nSetting default collection to Grateful Dead");
+    this.getCollection(intent);
+  }
+
   getAudioPlayList(intent, counter, this, offsetInMilliseconds, function (err, Obj, response) {
     if (!err) {
       Obj.context.succeed(response);
