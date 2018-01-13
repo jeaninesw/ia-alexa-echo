@@ -32,6 +32,8 @@ var TotalTrack = -1;
 var IdentifierCount = 0;
 console.log('Start');
 exports.handler = function (event, context) {
+  console.log("\n" + "******************* REQUEST **********************");
+  console.log("\n" + JSON.stringify(event, null, 2));
   var player = new MyAudioPlayer(event, context);
   player.handle();
 };
@@ -50,6 +52,7 @@ var MyAudioPlayer = function (event, context) {
 MyAudioPlayer.prototype.handle = function () {
   var requestType = (this.event.request != undefined) ? this.event.request.type : null;
 
+  console.log("\nrequestType: " + requestType);
   if (requestType === "LaunchRequest") {
     console.log('LaunchRequest');
     SeventyEights = false;
@@ -58,6 +61,7 @@ MyAudioPlayer.prototype.handle = function () {
   }
   else if (requestType === "IntentRequest") {
     var intent = this.event.request.intent;
+    console.log("\nintent: " + JSON.stringify(intent, null, 2));
     if (intent.name === 'Discovery') {
       SeventyEights = false;
       console.log('Discovery');
@@ -978,10 +982,14 @@ MyAudioPlayer.prototype.PlayNext = function (requestType, offsetInMilliseconds) 
 };
 
 function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callback) {
+  console.log("\ngetAudioPlayList -  counter:" + counter + " thisOBJ:" + thisOBJ + 
+    " offsetInMilliseconds:" + offsetInMilliseconds + " callback:" + callback + " collection: " + collection);
   if (collection != '' || searchBYTitle) {
     var track = counter + 1;
 
+    console.log("track: " + track);
     if ((MusicUrlList.length > 0 && intent.name != 'PlayAudio' && intent.name != 'PlayAudioByRandom' && intent.name != 'PlayAudioByCity' && intent.name != 'PlayAudioByRandomYear' && intent.name != 'PlayAudioByRandomCity' && intent.name != 'PlayAudioQuery' && typeQuery === false)) {
+      console.log("MusicUrlList: " + MusicUrlList);
       if (track > MusicUrlList.length) {
         counter = 0;
         track = counter + 1;
@@ -1076,6 +1084,7 @@ function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callba
     }
     else if (intent.name == 'PlayAudio' || intent.name == 'PlayAudioByCity' || intent.name == 'PlayAudioByRandom' || intent.name == 'PlayAudioByRandomYear' || intent.name == 'PlayAudioByRandomCity' || intent.name == 'PlayAudioByYearCity' || intent.name == 'PlayAudioQuery' || typeQuery === true) {
 
+      console.log("typeQuery = true");
       if (searchBYTitle || intent.name == 'PlayAudioQuery') {
         if (intent.name === 'PlayAudioQuery') {
           title = intent.slots.TITLE.value;
@@ -1129,7 +1138,7 @@ function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callba
           APIURL = APIURL + '&fl[]=coverage&fl[]=creator&fl[]=description&fl[]=downloads&fl[]=identifier&fl[]=mediatype&fl[]=subject,year,location&fl[]=title&sort[]=downloads desc&rows=1&page=' + page + '&indent=yes&output=json';
         }
       }
-      console.log('APIURL- ' + APIURL);
+      console.log("APIURL- " + APIURL);
       https.get(APIURL, function (res) {
         var body = '';
         res.on('data', function (data) {
@@ -2188,8 +2197,8 @@ function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callba
   }
   else {
     var cardTitle = 'Please select artist';
-    var repromptText = "<speak>Please select an artist by saying.<break time='.5s'/> artist name.<break time='.5s'/> Like The Ditty Bops.<break time='.5s'/> Or  Cowboy Junkies.<break time='.5s'/> Or  GratefulDead.</speak>";
-    var speechOutput = "<speak>Please select an artist by saying.<break time='.5s'/> artist name.<break time='.5s'/> Like The Ditty Bops.<break time='.5s'/> Or  Cowboy Junkies.<break time='.5s'/> Or  GratefulDead.</speak>";
+    var repromptText = "Please select an artist by saying artist name: like The Ditty Bops, or Cowboy Junkies, or Grateful Dead.";
+    var speechOutput = "<speak>Please select an artist by saying.<break time='.5s'/> artist name.<break time='.5s'/> Like The Ditty Bops.<break time='.5s'/> Or Cowboy Junkies.<break time='.5s'/> Or GratefulDead.</speak>";
 
     var response = {
       version: '1.0',
@@ -2220,6 +2229,7 @@ function getAudioPlayList(intent, counter, thisOBJ, offsetInMilliseconds, callba
 MyAudioPlayer.prototype.handleSessionEndRequest = function () {
   var cardTitle = 'Good bye';
   var speechOutput = "<speak>Thanks for rocking with the internet archive’s live music collection!</speak>";
+  var textOutput = "Thanks for rocking with the internet archive’s live music collection!";
   var repromptText = "<speak>Thanks for rocking with the internet archive’s live music collection!</speak>";
   var response = {
     version: '1.0',
@@ -2231,7 +2241,7 @@ MyAudioPlayer.prototype.handleSessionEndRequest = function () {
       card: {
         type: 'Simple',
         title: cardTitle,
-        content: speechOutput,
+        content: textOutput,
       },
       reprompt: {
         outputSpeech: {
@@ -2271,6 +2281,7 @@ MyAudioPlayer.prototype.getCollection = function (intent) {
   var CurrentObject = this;
   collection = intent.slots.COLLECTION.value;
   var collection_real_name = intent.slots.COLLECTION.value
+  console.log("collectionSlot: " + collection);
   if (collection != '' || collection != undefined) {
 
     collectionQuery = '';
