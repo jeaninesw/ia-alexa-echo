@@ -2314,7 +2314,10 @@ function log(Title, Collection, City, Year, Url, callback) {
 
 MyAudioPlayer.prototype.getCollection = function (intent) {
   var CurrentObject = this;
-  var slotValue = intent.slots.COLLECTION.value;
+  var slotValue = '';
+  if (intent != '' && intent.name === 'getCollection') {
+    slotValue = intent.slots.COLLECTION.value;
+  }
   if (slotValue == '') {
     // if no collection defined, set default to grateful dead
     slotValue = 'grateful dead';
@@ -2371,6 +2374,11 @@ MyAudioPlayer.prototype.getCollection = function (intent) {
               }
             }
           }
+          // if getCollection is not the intent, return so play can continue
+          if (intent === '' || intent.name != 'getCollection') {
+            return;
+          }
+
           var cardTitle = 'Provide City and Year';
           var repromptText = "<speak>Please select a City and year.<break time='.5s'/> Like " + CityName + " " + YearName + "  or <break time='.1s'/>  random.</speak>";
           var cardOutput = collection_real_name + " has been selected. Now, please select CITY and YEAR or RANDOM. Like " + CityName + " " + YearName + " or random.";
